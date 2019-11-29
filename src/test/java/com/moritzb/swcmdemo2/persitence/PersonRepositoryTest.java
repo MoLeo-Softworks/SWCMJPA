@@ -21,7 +21,7 @@ class PersonRepositoryTest {
         assertThat(p.getId()).isNull();
         assertThat(p.getVersion()).isNull();
 
-        Person saved = repository.saveAndFlush(p);
+        Person saved = repository.save(p);
 
         assertThat(saved).isNotNull();
         assertThat(saved.getId()).isNotNull();
