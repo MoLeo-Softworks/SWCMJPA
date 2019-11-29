@@ -1,4 +1,4 @@
-package com.moritzb.swcmdemo2.persitence;
+package com.moritzb.swcmdemo2.persistence;
 
 import com.moritzb.swcmdemo2.domain.LegacyEntity;
 import com.moritzb.swcmdemo2.persistence.LegacyEntityRepository;

@@ -1,12 +1,14 @@
 package com.moritzb.swcmdemo2.domain;
 
 import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -55,4 +57,34 @@ public class Person {
     @Enumerated(EnumType.STRING)
     @Column(name = "ETHNIC", table = "PERSON_ETHNICS", nullable = false)
     private Ethnic ethnic;
+
+    @NotNull
+    @AttributeOverrides({
+            @AttributeOverride(name = "streetNo", column = @Column(name = "WA_STREET_NO", nullable = false)),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "WA_ZIP_CODE", nullable = false)),
+            @AttributeOverride(name = "city", column = @Column(name = "WA_CITY", nullable = false))
+    })
+    @AssociationOverride(name = "country", joinColumns = @JoinColumn(name = "WA_COUNTRY_ID"))
+    @Embedded
+    private Address workAddress;
+
+    @Nullable
+    @AttributeOverrides({
+            @AttributeOverride(name = "streetNo", column = @Column(name = "BA_STREET_NO")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "BA_ZIP_CODE")),
+            @AttributeOverride(name = "city", column = @Column(name = "BA_CITY"))
+    })
+    @AssociationOverride(name = "country", joinColumns = @JoinColumn(name = "BA_COUNTRY_ID"))
+    @Embedded
+    private Address billingAddress;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "PERSON_OTHER_ADDRESSES",
+            joinColumns = @JoinColumn(name = "PERSON_ID")
+    )
+    private List<Address> otherAddresses;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", orphanRemoval = true)
+    private List<Cat> cats;
 }
