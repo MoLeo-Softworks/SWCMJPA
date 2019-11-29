@@ -84,7 +84,4 @@ public class Person {
             joinColumns = @JoinColumn(name = "PERSON_ID")
     )
     private List<Address> otherAddresses;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", orphanRemoval = true)
-    private List<Cat> cats;
 }
