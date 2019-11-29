@@ -29,7 +29,6 @@ import javax.persistence.*;
 })
 public class Person {
     @Id
-
     @SequenceGenerator(name = "SEQ_PEOPLE", sequenceName = "SEQ_PEOPLE", initialValue = 1000, allocationSize = 50)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PEOPLE")
     @Column(name = "ID")
